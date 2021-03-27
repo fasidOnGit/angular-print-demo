@@ -1,7 +1,8 @@
 {
   "version": 1,
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "8f5fc56e-b3a0-4497-93b6-f2385d3f55a7"
   },
   "defaultProject": "print-demo",
   "schematics": {
@@ -51,7 +52,10 @@
               "apps/print-demo/src/favicon.ico",
               "apps/print-demo/src/assets"
             ],
-            "styles": ["apps/print-demo/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "apps/print-demo/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -142,6 +146,43 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/print-demo-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "hero-list-iframe": {
+      "projectType": "library",
+      "root": "libs/hero-list-iframe",
+      "sourceRoot": "libs/hero-list-iframe/src",
+      "prefix": "angular-print",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "libs/hero-list-iframe/tsconfig.lib.json",
+            "project": "libs/hero-list-iframe/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/hero-list-iframe/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/hero-list-iframe/src/**/*.ts",
+              "libs/hero-list-iframe/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/hero-list-iframe"],
+          "options": {
+            "jestConfig": "libs/hero-list-iframe/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
